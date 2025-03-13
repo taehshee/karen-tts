@@ -1,1 +1,4 @@
-"Flask\ngunicorn\npydub\nffmpeg" 
+Flask
+gunicorn
+pydub
+ffmpeg
