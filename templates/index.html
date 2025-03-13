@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karen TTS</title>
+</head>
+<body>
+    <h2>Type a Karen sentence:</h2>
+    <input type="text" id="text-input" placeholder="Enter Karen text">
+    <button onclick="generateAudio()">Generate Speech</button>
+    <br><br>
+    <audio id="audio-player" controls></audio>
+
+    <script>
+        function generateAudio() {
+            let text = document.getElementById("text-input").value;
+            fetch("/tts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.file) {
+                    document.getElementById("audio-player").src = data.file;
+                } else {
+                    alert("Error: " + data.error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
